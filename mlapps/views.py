@@ -1,6 +1,4 @@
 from django.shortcuts import render
-import pandas as pd
-import pickle
 
 def entrance(request):
     return render(request, 'mlapps/entrance.html', {})
