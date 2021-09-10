@@ -11,19 +11,22 @@
 
         {% if attention %}
             <div>
-                <h3>全ての空欄が埋まっていない/半角数字で入力されていない可能性があります。もう一度やり直してください。</h3>
+                <h3>全ての空欄が埋まっていない可能性があります。もう一度やり直してください。</h3>
             </div>
         {% endif %}
 
         <div>
             <form action="{% url 'score' %}" method="POST">
                 {% if not pred %}
-                    全ての空欄を選択肢の中から選んで、半角数値で入力してください>
+                    全ての設問を選択肢の中から選んで、該当するステータスのラジオボタンを押してください>
                 {% endif %}
                 {% for key, value in questions.items %}
-                    <p>{{ key }}>{{ value }}
+                    <p>{{ key }}>
                         <br>
-                        <input type="int" name="{{ key }}">
+                        {% for radio in value %}
+                            <label for="{{ key }}"><input type="radio" name="{{ key }}", value={{ forloop.counter }}></label>
+                            {{ radio }}
+                        {% endfor %}
                     </p>
                 {% endfor %}
                 {% csrf_token %}
@@ -36,7 +39,12 @@
         {% if pred %}
             <div>
                 <h3>あなたの青学合格判定は {{ pred }} 判定です！</h3>
-                <p>もう一度やり直したい場合はブラウザの戻る機能で戻ってね</p>
+                <p>※あくまでジョークAIアプリなので、本命の人は気にしすぎないようにね</p>
+                <p>※もう一度やり直したい場合はブラウザの戻る機能で戻ってね</p>
+            </div>
+
+            <div>
+                <a href="score_detail/">このAIの詳細はこちら</a>
             </div>
         {% endif %}
     </body>

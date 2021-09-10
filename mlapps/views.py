@@ -52,7 +52,7 @@ def score(request):
         try:
             df_try = pd.DataFrame(index=['own'])
             for question in questions:
-                df_try[question] = request.POST[question]
+                df_try[question] = int(request.POST[question]) - 1
 
             df_bayes, df_lr, df_svm = df_try.copy(), df_try.copy(), df_try.copy()
             delete_columns(df_bayes, bayes_columns)
@@ -71,8 +71,11 @@ def score(request):
         except:
             return render(request, 'mlapps/score.html', {'questions':questions, 'attention':attention})
 
+def score_detail(request):
+    return render(request, 'mlapps/score_detail.html', {})
+
 def rent(request):
     return render(request, 'mlapps/rent.html', {})
-
+    
 def travel(request):
     return render(request, 'mlapps/travel.html', {})
