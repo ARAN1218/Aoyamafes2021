@@ -9,7 +9,7 @@ from sklearn.svm import SVC
 def entrance(request):
     return render(request, 'mlapps/entrance.html', {})
 
-questions = {'questions' : {
+questions = {
         'あなたの性別は何ですか？':['0. 男性', '1. 女性']
         ,'あなたは文系ですか？理系ですか？':['0. 文系', '1. 理系']
         ,'あなたの卒業した高校の入学当時の偏差値はおよそいくつでしたか？':['0. ~29', '1. 30~39', '2. 40~49', '3. 50~59', '4. 60~69', '5. 70~']
@@ -28,7 +28,7 @@ questions = {'questions' : {
         ,'あなたは青学を第何志望校として設定していましたか？':['0. 第一志望校', '1. 第二志望校', '2. 第三志望校', '3. その他(第四志望校以下)']
         ,'夏に何らかの模試を受けましたか？':['0. 河合模試', '1. 駿台模試', '2. 東進模試', '3. 代々木模試', '4. 進研模試', '5. 複数受験した', '6. その他(受けていない含む)']
         ,'[最重要]ハトは"良い"ですか？':['0. はい', '1. いいえ', '810. ｵﾊｰﾄ🐦']
-    }}
+    }
 bayes_columns = ['あなたの性別は何ですか？', 'あなたは文系ですか？理系ですか？', 'あなたは高校時代に何か部活に加入していましたか？', 'あなたは大学進学という進路選択について、明確な目的意識がありましたか？', 'あなたはファッションに興味がありますか？', 'あなたは周りと合わせるよりも自分の道を突き通す方ですか？', 'あなたは音楽を聴きながら勉強していましたか？', 'あなたは塾・予備校(またはそれに準ずるサービス等)を利用していましたか？', 'あなたは青学合格年度に一日平均どの程度睡眠をとっていましたか？', 'あなたは受験期にスマホやテレビ等の使用制限をかけていましたか？', '第一志望大学群はどこでしたか？']
 lr_columns = ['あなたは大学進学という進路選択について、明確な目的意識がありましたか？', 'あなたはファッションに興味がありますか？', 'あなたは周りと合わせるよりも自分の道を突き通す方ですか？', 'あなたは音楽を聴きながら勉強していましたか？', 'あなたは塾・予備校(またはそれに準ずるサービス等)を利用していましたか？', 'あなたは受験期にスマホやテレビ等の使用制限をかけていましたか？', '第一志望大学群はどこでしたか？']
 svm_columns = ['あなたはファッションに興味がありますか？']
@@ -39,6 +39,7 @@ prediction = {
     3.:'D',
     4.:'E'
 }
+attention = 1
 def delete_columns(df, columns):
     for column in df.columns:
         if column not in columns:
@@ -46,11 +47,11 @@ def delete_columns(df, columns):
 
 def score(request):
     if request.method == 'GET':
-        return render(request, 'mlapps/score.html', questions)
+        return render(request, 'mlapps/score.html', {'questions':questions})
     else:
-        
+        try:
             df_try = pd.DataFrame(index=['own'])
-            for question in questions['questions']:
+            for question in questions:
                 df_try[question] = request.POST[question]
 
             df_bayes, df_lr, df_svm = df_try.copy(), df_try.copy(), df_try.copy()
@@ -58,7 +59,7 @@ def score(request):
             delete_columns(df_lr, lr_columns)
             delete_columns(df_svm, svm_columns)
 
-            with open('Aoyamasai_models.pickle', mode='rb') as fp:
+            with open('/home/aran/aran.pythonanywhere.com/Aoyamasai_models.pickle', mode='rb') as fp:
                 model1, model2, model3 = pickle.load(fp)
             pred = int(np.round((model1.predict(df_bayes) + model2.predict(df_lr) + model3.predict(df_svm)) / 3))
 
@@ -67,8 +68,8 @@ def score(request):
                 'pred':prediction[pred],
             }
             )
-        
-            return render(request, 'mlapps/score.html', questions)
+        except:
+            return render(request, 'mlapps/score.html', {'questions':questions, 'attention':attention})
 
 def rent(request):
     return render(request, 'mlapps/rent.html', {})

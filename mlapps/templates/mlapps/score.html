@@ -9,10 +9,16 @@
             <p>開発者：青学/理工/経シス/2年 奈良駿佑</p>
         </div>
 
+        {% if attention %}
+            <div>
+                <h3>全ての空欄が埋まっていない/半角数字で入力されていない可能性があります。もう一度やり直してください。</h3>
+            </div>
+        {% endif %}
+
         <div>
             <form action="{% url 'score' %}" method="POST">
                 {% if not pred %}
-                    Enter your status>
+                    全ての空欄を選択肢の中から選んで、半角数値で入力してください>
                 {% endif %}
                 {% for key, value in questions.items %}
                     <p>{{ key }}>{{ value }}
