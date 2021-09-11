@@ -24,7 +24,7 @@
                     <p>{{ key }}>
                         <br>
                         {% for radio in value %}
-                            <label for="{{ key }}"><input type="radio" name="{{ key }}", value={{ forloop.counter }}, style="width:15px;height:15px"></label>
+                            <label for="{{ key }}"><input type="radio" name="{{ key }}", value={{forloop.counter0}} , style="width:15px;height:15px"></label>
                             {{ radio }}
                         {% endfor %}
                     </p>

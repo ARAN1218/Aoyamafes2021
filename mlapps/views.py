@@ -55,7 +55,7 @@ def score(request):
         try:
             df_try = pd.DataFrame(index=['own'])
             for question in questions:
-                df_try[question] = int(request.POST[question]) - 1
+                df_try[question] = request.POST[question]
 
             df_bayes, df_lr, df_svm = df_try.copy(), df_try.copy(), df_try.copy()
             delete_columns(df_bayes, bayes_columns)
