@@ -18,7 +18,7 @@
         <div>
             <form action="{% url 'rent' %}" method="POST">
                 {% if not pred %}
-                    指示がない場合は半角数字で入力してください。また、プルダウンは片方だけ入力してください>
+                    指示がない場合は半角数字で入力してください。また、プルダウンでは青山/相模原で選択肢が違うので、対応する選択肢を入力してください。>
                     <br>
                     <br>
                     <label>あなたはどちらのキャンパスに通学しますか？</label><br>
@@ -33,19 +33,17 @@
                     プルダウンの選択肢より、住所を入力してください><br>
                     <select name='プルダウンの選択肢より、住所を入力してください>'>
                     <option value="" selected>選択してください</option>
+                        <optgroup label="青山キャンパス周辺">
                         {% for value in Aaddress %}
                             <option value={{ value }}>{{ value }}</option>
                         {% endfor %}
-                    </select>
-                    青山キャンパス周辺
-                    <br>
-                    <select name='プルダウンの選択肢より、住所を入力してください>'>
-                    <option value="" selected>選択してください</option>
+                        </optgroup>
+                        <optgroup label="相模原キャンパス周辺">
                         {% for value in Saddress %}
                             <option value={{ value }}>{{ value }}</option>
                         {% endfor %}
+                        </optgroup>
                     </select>
-                    相模原キャンパス周辺
                 {% endif %}
 
                 {% for key, value in questions_rent.items %}
@@ -59,19 +57,17 @@
                             <br>
                             <select name='プルダウンの選択肢より、間取りを入力してください>'>
                             <option value="" selected>選択してください</option>
+                                <optgroup label="青山ver">
                                 {% for value in Alayout %}
                                     <option value={{ value }}>{{ value }}</option>
                                 {% endfor %}
-                            </select>
-                            青山ver
-                            <br>
-                            <select name='プルダウンの選択肢より、間取りを入力してください>'>
-                            <option value="" selected>選択してください</option>
+                                </optgroup>
+                                <optgroup label="相模原ver">
                                 {% for value in Slayout %}
                                     <option value={{ value }}>{{ value }}</option>
                                 {% endfor %}
+                                </optgroup>
                             </select>
-                            相模原ver
                         {% endif %}
                     </p>
                 {% endfor %}

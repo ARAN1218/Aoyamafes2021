@@ -78,17 +78,17 @@ def score_detail(request):
     return render(request, 'mlapps/score_detail.html', {})
 
 
-with open('/home/aran/aran.pythonanywhere.com/Saddress.pickle', mode='rb') as fp:
+with open('Saddress.pickle', mode='rb') as fp:
     Saddress = pickle.load(fp)
-with open('/home/aran/aran.pythonanywhere.com/Slayout.pickle', mode='rb') as fp:
+with open('Slayout.pickle', mode='rb') as fp:
     Slayout = pickle.load(fp)
-with open('/home/aran/aran.pythonanywhere.com/Aaddress.pickle', mode='rb') as fp:
+with open('Aaddress.pickle', mode='rb') as fp:
     Aaddress = pickle.load(fp)
-with open('/home/aran/aran.pythonanywhere.com/Alayout.pickle', mode='rb') as fp:
+with open('Alayout.pickle', mode='rb') as fp:
     Alayout = pickle.load(fp)
-with open('/home/aran/aran.pythonanywhere.com/Smodel_lgb_rent.pickle', mode='rb') as fp:
+with open('Smodel_lgb_rent.pickle', mode='rb') as fp:
     Smodel_lgb_rent = pickle.load(fp)
-with open('/home/aran/aran.pythonanywhere.com/Amodel_lgb_rent.pickle', mode='rb') as fp:
+with open('Amodel_lgb_rent.pickle', mode='rb') as fp:
     Amodel_lgb_rent = pickle.load(fp)
 
 questions_rent = {
