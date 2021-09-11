@@ -24,14 +24,14 @@
                     <p>{{ key }}>
                         <br>
                         {% for radio in value %}
-                            <label for="{{ key }}"><input type="radio" name="{{ key }}", value={{ forloop.counter }}></label>
+                            <label for="{{ key }}"><input type="radio" name="{{ key }}", value={{ forloop.counter }}, style="width:15px;height:15px"></label>
                             {{ radio }}
                         {% endfor %}
                     </p>
                 {% endfor %}
                 {% csrf_token %}
                 {% if not pred %}
-                    <button type="submit">上記のステータスで予測する</button>
+                    <button type="submit", style="width:200px;height:100px">上記のステータスで予測する</button>
                 {% endif %}
             </form>
         </div>

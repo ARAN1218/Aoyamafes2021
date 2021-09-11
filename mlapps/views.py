@@ -5,9 +5,12 @@ import pandas as pd
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
+from sklearn.preprocessing import LabelEncoder
+import lightgbm as lgb
 
 def entrance(request):
     return render(request, 'mlapps/entrance.html', {})
+
 
 questions = {
         'あなたの性別は何ですか？':['0. 男性', '1. 女性']
@@ -74,8 +77,73 @@ def score(request):
 def score_detail(request):
     return render(request, 'mlapps/score_detail.html', {})
 
+
+with open('/home/aran/aran.pythonanywhere.com/Saddress.pickle', mode='rb') as fp:
+    Saddress = pickle.load(fp)
+with open('/home/aran/aran.pythonanywhere.com/Slayout.pickle', mode='rb') as fp:
+    Slayout = pickle.load(fp)
+with open('/home/aran/aran.pythonanywhere.com/Aaddress.pickle', mode='rb') as fp:
+    Aaddress = pickle.load(fp)
+with open('/home/aran/aran.pythonanywhere.com/Alayout.pickle', mode='rb') as fp:
+    Alayout = pickle.load(fp)
+with open('/home/aran/aran.pythonanywhere.com/Smodel_lgb_rent.pickle', mode='rb') as fp:
+    Smodel_lgb_rent = pickle.load(fp)
+with open('/home/aran/aran.pythonanywhere.com/Amodel_lgb_rent.pickle', mode='rb') as fp:
+    Amodel_lgb_rent = pickle.load(fp)
+
+questions_rent = {
+    'プルダウンの選択肢より、住所を入力してください>':'住所',
+    '管理共益費を入力してください>':'管理共益費',
+    '敷金(賃料のnヶ月分のn)を入力してください>':'礼金',
+    '礼金(賃料のnヶ月分のn)を入力してください>':'敷金',
+    '専有面積(単位：m^2)を入力してください>':'専有面積',
+    'プルダウンの選択肢より、間取りを入力してください>':'間取り',
+    '築年数を入力してください(新築の場合は0と入力してください)>':'築年数'
+}
+
 def rent(request):
-    return render(request, 'mlapps/rent.html', {})
+    if request.method == 'GET':
+        return render(request, 'mlapps/rent.html', 
+        {
+            'questions_rent':questions_rent,
+            'Aaddress':sorted(list(Aaddress.classes_)),
+            'Alayout':sorted(list(Alayout.classes_)),
+            'Saddress':sorted(list(Saddress.classes_)),
+            'Slayout':sorted(list(Slayout.classes_))
+        })
+    else:
+        try:
+            which = int(request.POST['which'])
+            df_try = pd.DataFrame(index=['own'])
+            for question in questions_rent:
+                df_try[questions_rent[question]] = request.POST[question]
+
+            if which == 0:
+                df_try['住所'] = Aaddress.transform(df_try['住所'])
+                df_try['間取り'] = Alayout.transform(df_try['間取り'])
+                df_try = df_try.astype(float)
+                pred = Amodel_lgb_rent.predict(df_try)
+            else:
+                df_try['住所'] = Saddress.transform(df_try['住所'])
+                df_try['間取り'] = Slayout.transform(df_try['間取り'])
+                df_try = df_try.astype(float)
+                pred = Smodel_lgb_rent.predict(df_try)
+
+            return render(request, 'mlapps/rent.html', {'pred':'{0:.2f}'.format(float(pred))})
+            
+        except:
+            return render(request, 'mlapps/rent.html', 
+            {
+                'questions_rent':questions_rent,
+                'Aaddress':sorted(list(Aaddress.classes_)),
+                'Alayout':sorted(list(Alayout.classes_)),
+                'Saddress':sorted(list(Saddress.classes_)),
+                'Slayout':sorted(list(Slayout.classes_)),
+                'attention':attention
+            })
+        
+def rent_detail(request):
+    return render(request, 'mlapps/rent_detail.html', {})
     
 def travel(request):
     return render(request, 'mlapps/travel.html', {})
