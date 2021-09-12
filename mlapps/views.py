@@ -145,5 +145,124 @@ def rent(request):
 def rent_detail(request):
     return render(request, 'mlapps/rent_detail.html', {})
     
+
+with open('/home/aran/aran.pythonanywhere.com/LE_destination.pickle', mode='rb') as fp:
+    LE_destination = pickle.load(fp)
+with open('/home/aran/aran.pythonanywhere.com/LE_inn_num.pickle', mode='rb') as fp:
+    LE_inn_num = pickle.load(fp)
+with open('/home/aran/aran.pythonanywhere.com/LE_inn_type.pickle', mode='rb') as fp:
+    LE_inn_type = pickle.load(fp)
+with open('/home/aran/aran.pythonanywhere.com/LE_meal.pickle', mode='rb') as fp:
+    LE_meal = pickle.load(fp)
+with open('/home/aran/aran.pythonanywhere.com/model_lgb_travel.pickle', mode='rb') as fp:
+    model_lgb_travel = pickle.load(fp)
+
+questions_travel = {
+    '旅行日数を右記例の様に入力してください>':'旅行日数',
+    '目的地を選択してください>':'目的地',
+    '宿泊施設のタイプを選択してください>':'宿泊施設タイプ',
+    '宿泊先での食事の形式を選択してください(「-」は食事無し)>':'食事',
+    '宿泊施設受け入れ人数を入力してください>':'宿泊施設受け入れ人数',
+    '温泉の有無を選択してください>':'温泉あり',
+    '露天風呂の有無を選択してください>':'露天風呂あり',
+    '大浴場の有無を選択してください>':'大浴場あり',
+    'プール・プライベートビーチの有無を選択してください>':'プール・プライベートビーチあり',
+    'オーシャンビューの有無を選択してください>':'オーシャンビュー',
+    '露天風呂付き客室の有無を選択してください>':'露天風呂付き客室',
+    '宿泊先がリゾートホテルかどうか選択してください>':'リゾートホテル',
+    'ビーチの近くに宿泊するか選択してください>':'ビーチ近く',
+    'ゲレンデ近くに宿泊するか選択してください>':'ゲレンデ近く',
+    '宿泊先がビジネスホテルかどうか選択してください>':'ビジネスホテル',
+    'ペットOKかどうか選択してください>':'ペットOK',
+    'レイトチェックアウトが可能かどうか選択してください>':'レイトチェックアウト',
+    'フリープランの有無を選択してください>':'フリープラン',
+    '延泊設定の有無を選択してください>':'延泊設定あり',
+    '一名申込可能かどうか選択してください>':'1名申込可',
+    'レンタカー付きかどうか選択してください>':'レンタカー付き',
+    '美容プラン付きかどうか選択してください>':'リラックス・美容付',
+    'スポーツ・アウトドア付きかどうか選択してください>':'スポーツ・アウトドア付',
+    'コンサート・観劇付きかどうか選択してください>':'コンサート・スポーツ・観劇付',
+    '催行保証日の有無を選択してください>':'催行保証日あり',
+    'グループ特典の有無を選択してください>':'グループ特典あり',
+    'グルメプランの有無を選択してください>':'グルメ付',
+    '添乗員の有無を選択してください>':'添乗員付き', 
+    'クルーズ旅行プランの有無を選択してください>':'クルーズ旅行', 
+    'バスツアーの有無を選択してください>':'バスツアー', 
+    'テーマパーク・遊園地付きかどうか選択してください>':'テーマパーク・遊園地付', 
+    '観光プランの有無を選択してください>':'観光付',
+    '祭り・イベントの有無を選択してください>':'祭り・イベント付', 
+    'オプショナルツアーの有無を選択してください>':'オプショナルツアーあり', 
+    '体験・カルチャー付きかどうかを選択してください>':'体験・カルチャー付', 
+    '家族旅行かどうかを選択してください>':'家族旅行', 
+    '一人旅かどうかを選択してください>':'ひとり旅', 
+    '出張・ビジネス目的かどうかを選択してください>':'出張・ビジネス',
+    'ゆったり目に楽しみたいかどうかを選択してください>':'ゆったり旅', 
+    '学生旅行かどうかを選択してください>':'学生旅行', 
+    'カップルor夫婦で旅行するかどうか選択してください>':'カップル・ご夫婦', 
+    '新婚旅行かどうか選択してください>':'新婚旅行', 
+    '記念日旅行かどうか選択してください>':'記念日旅行', 
+    'イルミネーションの有無を選択してください>':'イルミネーション', 
+    'USJプランの有無を選択してください>':'USJ', 
+    'スイーツプランの有無を選択してください>':'スイーツ',
+    '食べ放題プランの有無を選択してください>':'食べ放題', 
+    'トレッキングプランの有無を選択してください>':'トレッキング', 
+    'ハイキングプランの有無を選択してください>':'ハイキング', 
+    'パワースポット巡りプランの有無を選択してください>':'パワースポット', 
+    '登山プランの有無を選択してください>':'登山', 
+    '国立公園・大自然巡りプランの有無を選択してください>':'国立公園・大自然', 
+    '絶景・秘境・大自然巡りプランの有無を選択してください>':'絶景・秘境・大自然',
+    '夜景プランの有無を選択してください>':'夜景', 
+    '城巡りプランの有無を選択してください>':'城', 
+    '遺跡巡りプランの有無を選択してください>':'遺跡', 
+    '世界遺産巡りプランの有無を選択してください>':'世界遺産', 
+    '現地ガイド・観光タクシーの有無を選択してください>':'現地ガイド・観光タクシー', 
+    '寺社・仏閣・教会巡りプランの有無を選択してください>':'寺社・仏閣・教会', 
+    '動物園・水族館巡りプランの有無を選択してください>':'動物園・水族館',
+    '博物館・美術館巡りプランの有無を選択してください>':'博物館・美術館', 
+    '花火プランの有無を選択してください>':'花火', 
+    'ゴルフプランの有無を選択してください>':'ゴルフ', 
+    'スキー・スノボ（リフト券付き）プランの有無を選択してください>':'スキー・スノボ（リフト券付き）', 
+    'スパ・エステ・マッサージプランの有無を選択してください>':'スパ・エステ・マッサージ'
+}
+selection = ['✖︎', '○']
+
 def travel(request):
-    return render(request, 'mlapps/travel.html', {})
+    if request.method == 'GET':
+        return render(request, 'mlapps/travel.html', 
+        {
+            'questions_travel':questions_travel,
+            'destination':sorted(LE_destination.classes_),
+            'inn_type':sorted(list(LE_inn_type.classes_)),
+            'inn_num':sorted(list(LE_inn_num.classes_)),
+            'meal':sorted(list(LE_meal.classes_)),
+            'selection':selection
+        })
+    else:
+        try:
+            df_try = pd.DataFrame(index=['own'])
+            for key, question in questions_travel.items():
+                df_try[question] = request.POST[key]
+
+            df_try['目的地'] = LE_destination.transform(df_try['目的地'])
+            df_try['宿泊施設タイプ'] = LE_inn_type.transform(df_try['宿泊施設タイプ'])
+            df_try['食事'] = LE_meal.transform(df_try['食事'])
+            df_try['宿泊施設受け入れ人数'] = LE_inn_num.transform(df_try['宿泊施設受け入れ人数'])
+            df_try = df_try.astype('int')
+
+            pred = model_lgb_travel.predict(df_try)
+
+            return render(request, 'mlapps/travel.html', {'pred':'{0:.2f}'.format(float(pred))})
+        except:
+            return render(request, 'mlapps/travel.html', 
+        {
+            'questions_travel':questions_travel,
+            'destination':sorted(list(LE_destination.classes_)),
+            'inn_type':sorted(list(LE_inn_type.classes_)),
+            'inn_num':sorted(list(LE_inn_num.classes_)),
+            'meal':sorted(list(LE_meal.classes_)),
+            'selection':selection,
+            'attention':attention
+        })
+
+def travel_detail(request):
+    return render(request, 'mlapps/travel_detail.html', {})

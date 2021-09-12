@@ -9,4 +9,5 @@ urlpatterns = [
     path('rent/', include('mlapps.urls')),
     path('rent_detail/', include('mlapps.urls')),
     path('travel/', include('mlapps.urls')),
+    path('travel_detail/', include('mlapps.urls')),
 ]
