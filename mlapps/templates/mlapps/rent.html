@@ -1,12 +1,15 @@
+{% load static %}
+
 <html>
     <head>
+        <link rel="stylesheet" href="{% static 'css/rent.css' %}">
         <title>aoyamafes_rent</title>
     </head>
 
     <body>
         <div>
             <h1>下宿先賃料予測AI</h1>
-            <p>開発者：青学/理工/経シス/2年 奈良駿佑</p>
+            <p>開発者：青学/理工/経シス/2年 NaRa</p>
         </div>
 
         {% if attention %}
