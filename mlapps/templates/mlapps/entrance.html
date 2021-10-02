@@ -2,36 +2,49 @@
 
 <html>
     <head>
-        <link rel="stylesheet" href="{% static 'css/entrance.css' %}">
+        <link rel="stylesheet" href="{% static 'css/entrance_css.css' %}">
         <title>aoyamafes_entrance</title>
     </head>
     <body>
-        <div>
-            <h1>青山祭展示作品 AIアプリ</h1>
-            <p>開発者：青学/理工/経シス/2年 NaRa</p>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">
+                        <p class="title">青山祭展示作品</p>
+                        <h1><span class="title1">Ａ</span><span class="title2">Ｉ</span><span class="title6">W</span><span class="title7">e</span><span class="title8">b</span><span class="title3">ア</span><span class="title4">プ</span><span class="title5">リ</span></h1>
+                        <p class="developer">Created by: Nara Shunsuke</p>
+                    </th>
+                </tr>
+            </thead>
 
-        <div>
-            <h2><a href="score/">青学合格判定予測AI</a></h2>
-            <p>学力とあまり関係ない情報を基に、あなたの青学合格判定を予測します！</p>
-        </div>
+            <tbody>
+                <tr>
+                    <td class="lu">
+                        <h2 class="app"><a href="score/"><font size="7">青学合格判定予測AI</font></a></h2>
+                        <p>学力と無関係な情報で青学合格判定を予測します！</p>
+                    </td>
 
-        <div>
-            <h2><a href="rent/">下宿先賃料予測AI</a></h2>
-            <p>お好みの物件情報を基に、あなたが青学に通学するための下宿先の賃料を予測します！</p>
-        </div>
+                    <td class="ru">
+                        <h2 class="app"><a href="rent/"><font size="7">下宿先賃料予測AI</font></a></h2>
+                        <p>お好みの物件情報で<br>青学に通学するための下宿先賃料を予測します！</p>
+                    </td>
+                </tr>
 
-        <div>
-            <h2><a href="travel/">卒業旅行費予測AI</a></h2>
-            <p>卒業旅行に行きたい旅行プランを基に、あなたの卒業旅行にかかる費用を予測します！</p>
-        </div>
+                <tr>      
+                    <td class="ld">
+                        <h2 class="app"><a href="travel/"><font size="7">卒業旅行費予測AI</font></a></h2>
+                        <p>旅行プランで卒業旅行の費用を予測します！</p>                        
+                    </td>
 
-        <br><br>
-        <a href='https://forms.gle/VFCdQeDEH2gAtPrd6'>このWebアプリの感想を教えて下さい♪(この文字列をクリック)</a>
-
-        <br><br><br><br><br><br><br><br><br>
-        来場者数カウンター(クリックすると外部サイトに飛びますので、触らないようにお願いいたします)
-        <nobr><table border="0" cellspacing="0" cellpadding="0"><tbody><tr><td><a href="https://www.free-counter.jp/"><img src="https://www.f-counter.net/ani1/46/1632387473/" alt="カウンター" border="0" style="margin:0px; padding:0px; border:0px; vertical-align:bottom"></a></td>
-        <td><a href="https://www.free-counter.jp/"><img src="https://www.f-counter.net/ani2/46/1632387473/" alt="カウンター" border="0" style="margin:0px; padding:0px; border:0px; vertical-align:bottom"></a></td></tr></tbody></table></nobr>
+                    <td class="rd">
+                        <a class="question" href='https://forms.gle/VFCdQeDEH2gAtPrd6'>このWebアプリの感想を教えて下さい♪(この文字列をクリック)</a>
+                        <br><br>
+                        累計来場者数カウンター
+                        <br>
+                        <a href="https://www.free-counter.jp/"><img src="https://www.f-counter.net/ani1/46/1632387473/" alt="カウンター" border="0" style="margin:0px; padding:0px; border:0px; vertical-align:bottom"><a href="https://www.free-counter.jp/"><img src="https://www.f-counter.net/ani2/46/1632387473/" alt="カウンター" border="0" style="margin:0px; padding:0px; border:0px; vertical-align:bottom"></a></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </body>
 </html>

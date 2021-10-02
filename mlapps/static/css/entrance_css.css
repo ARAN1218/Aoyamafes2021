@@ -1,0 +1,97 @@
+h2 a {
+    color: #ffffff;
+}
+
+p {
+    color:rgb(0, 0, 0);
+}
+
+.developer {
+    text-align: right; 
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.title {
+    text-align: left;
+    color: #ffffff
+}
+
+.app {
+    text-align: center; 
+}
+
+.title1 {
+    color: #ffffff;
+    font-size: 100px;
+}
+.title2 {
+    color: #000000;
+    font-size: 100px;
+}
+.title3 {
+    color: #000000;
+    font-size: 100px;
+}
+.title4 {
+    color: #ffffff;
+    font-size: 100px;
+}
+.title5 {
+    color: #000000;
+    font-size: 100px;
+}
+.title6 {
+    color: #ffffff;
+    font-size: 100px;
+}
+.title7 {
+    color: #000000;
+    font-size: 100px;
+}
+.title8 {
+    color: #ffffff;
+    font-size: 100px;
+}
+
+.lu {
+    background-color: #0e8d34;
+    background-size: cover;
+}
+.ru {
+    background-color: #daaa53;
+    background-size: cover;
+}
+.ld {
+    background-color: #60a6e7;
+    background-size: cover;
+}
+.rd {
+    background-color: #e452d8;
+    background-size: cover;
+}
+
+.question {
+    color:rgb(255, 255, 255)
+}
+
+table,
+td {
+    border: 1px solid rgb(0, 0, 0);
+    border-collapse: separate;
+    border-spacing: 0px 0px;
+    text-align: center; 
+    color: #ffffff
+}
+
+thead,
+tfoot {
+    background-color: rgb(126, 126, 126);
+    color: rgb(31, 151, 57);
+}
+
+table {
+    height: 100%;
+    width: 100%;
+    table-layout: fixed;
+}

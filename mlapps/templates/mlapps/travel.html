@@ -2,61 +2,56 @@
 
 <html>
     <head>
-        <link rel="stylesheet" href="{% static 'css/travel.css' %}">
+        <link rel="stylesheet" href="{% static 'css/travel_css.css' %}">
         <title>aoyamafes_travel</title>
     </head>
 
     <body>
         <div>
-            <h1>卒業旅行費予測AI</h1>
-            <p>開発者：青学/理工/経シス/2年 NaRa</p>
+            <h1 class="title">卒業旅行費予測AI</h1>
+            <p class="upper">開発者：青学/理工/経シス/2年 奈良駿佑</p>
         </div>
 
         {% if attention %}
             <div>
-                <h3>予測に必要な空欄が適切に入力されていない可能性があります。もう一度やり直してください。</h3>
+                <h3 class="upper">予測に必要な空欄が適切に入力されていない可能性があります。もう一度やり直してください。</h3>
             </div>
         {% endif %}
 
         <div>
             <form action="{% url 'travel' %}" method="POST">
                 {% if not pred %}
-                    最初の質問以外はラジオボタン/プルダウンの選択肢より、全て入力してください。注文はずゐぶん多いでせうがどうか一々こらへて下さい。>
-                    <br><br><br>
-                    旅行日数を右記例の様に入力してください(ex. 2泊3日->203、5泊12日->512)>
-                    <br>
-                        <label for="旅行日数を右記例の様に入力してください>"><input type="text" name="旅行日数を右記例の様に入力してください>"></label>
+                    <p>最初の質問以外はラジオボタン/プルダウンの選択肢より、全て入力してください。注文はずゐぶん多いでせうがどうか一々こらへて下さい。></p>
                     <br><br>
-                    目的地を選択してください>
+                    <p>旅行日数を右記例の様に入力してください(ex. 2泊3日->203、5泊12日->512)></p>
+                        <label class="upper" for="旅行日数を右記例の様に入力してください>"><input type="text" name="旅行日数を右記例の様に入力してください>"></label>
                     <br>
-                    <select name='目的地を選択してください>'>
+                    <p>目的地を選択してください></p>
+                    <select class="upper" name='目的地を選択してください>'>
                         <option value="" selected>選択してください</option>
                         {% for value in destination %}
                             <option value='{{ value }}'>{{ value }}</option>
                         {% endfor %}
                     </select>
-                    <br><br>
-                    宿泊施設のタイプを選択してください>
                     <br>
-                    <select name='宿泊施設のタイプを選択してください>'>
+                    <p>宿泊施設のタイプを選択してください></p>
+                    <select class="upper" name='宿泊施設のタイプを選択してください>'>
                         <option value="" selected>選択してください</option>
                         {% for value in inn_type %}
                             <option value={{ value }}>{{ value }}</option>
                         {% endfor %}
                     </select>
-                    <br><br>
-                    宿泊先での食事の形式を選択してください(「-」は食事無し)>
                     <br>
-                    <select name='宿泊先での食事の形式を選択してください(「-」は食事無し)>'>
+                    <p>宿泊先での食事の形式を選択してください(「-」は食事無し)></p>
+                    <select class="upper" name='宿泊先での食事の形式を選択してください(「-」は食事無し)>'>
                         <option value="" selected>選択してください</option>
                         {% for value in meal %}
                             <option value={{ value }}>{{ value }}</option>
                         {% endfor %}
                     </select>
-                    <br><br>
-                    宿泊施設受け入れ人数を入力してください>
                     <br>
-                    <select name='宿泊施設受け入れ人数を入力してください>'>
+                    <p>宿泊施設受け入れ人数を入力してください></p>
+                    <select class="upper" name='宿泊施設受け入れ人数を入力してください>'>
                         <option value="" selected>選択してください</option>
                         {% for value in inn_num %}
                             <option value={{ value }}>{{ value }}</option>
@@ -79,21 +74,21 @@
                 {% endfor %}
                 {% csrf_token %}
                 {% if not pred %}
-                    <button type="submit", style="width:200px;height:100px">上記のステータスで予測する</button>
+                    <button class="botton" type="submit", style="width:200px;height:100px">上記のステータスで予測する</button>
                 {% endif %}
             </form>
         </div>
 
         {% if pred %}
             <div>
-                <h3>あなたの理想の卒業旅行の費用は {{ pred }} 円です！</h3>
+                <p><big><big>あなたの理想の卒業旅行の費用は {{ pred }} 円です！</big></big></p>
                 <p>※いろいろ注文が多くてうるさかつたでせう。お気の毒でした。もうこれだけです。どうかつゐつたぁに、このゑゐあゐについての感想をたくさんよくかき込んでください。</p>
                 <p>※この予測結果は結構自信ないです...(詳細は下のリンクから)</p>
                 <p>※もう一度やり直したい場合はブラウザの戻る機能で戻ってね</p>
             </div>
 
             <div>
-                <a href="travel_detail/">このAIの詳細はこちら</a>
+                <a class="upper" href="travel_detail/">このAIの詳細はこちら</a>
             </div>
         {% endif %}
     </body>

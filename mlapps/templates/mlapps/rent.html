@@ -2,38 +2,37 @@
 
 <html>
     <head>
-        <link rel="stylesheet" href="{% static 'css/rent.css' %}">
+        <link rel="stylesheet" href="{% static 'css/rent_css.css' %}">
         <title>aoyamafes_rent</title>
     </head>
 
     <body>
         <div>
-            <h1>下宿先賃料予測AI</h1>
-            <p>開発者：青学/理工/経シス/2年 NaRa</p>
+            <h1 class="title">下宿先賃料予測AI</h1>
+            <p class="upper">開発者：青学/理工/経シス/2年 奈良駿佑</p>
         </div>
 
         {% if attention %}
             <div>
-                <h3>予測に必要な空欄が適切に入力されていない可能性があります。もう一度やり直してください。</h3>
+                <h3 class="upper">予測に必要な空欄が適切に入力されていない可能性があります。もう一度やり直してください。</h3>
             </div>
         {% endif %}
 
         <div>
             <form action="{% url 'rent' %}" method="POST">
                 {% if not pred %}
-                    指示がない場合は半角数字で入力してください。また、プルダウンでは青山/相模原で選択肢が違うので、対応する選択肢を入力してください。>
+                    <p class="upper">指示がない場合は半角数字で入力してください。また、プルダウンでは青山/相模原で選択肢が違うので、対応する選択肢を入力してください。></p>
+                    <label><p class="upper">あなたはどちらのキャンパスに通学しますか？</label>
                     <br>
-                    <br>
-                    <label>あなたはどちらのキャンパスに通学しますか？</label><br>
                     <select name="which">
                     <option value="" selected>選択してください</option>
                     <option value="0">青山キャンパス(文系)</option>
                     <option value="1">相模原キャンパス(理系)</option>
                     </select>
-                    <br>
-                    <br>
+                    </p>
 
-                    プルダウンの選択肢より、住所を入力してください><br>
+                    <p class="upper">プルダウンの選択肢より、住所を入力してください>
+                    <br>
                     <select name='プルダウンの選択肢より、住所を入力してください>'>
                     <option value="" selected>選択してください</option>
                         <optgroup label="青山キャンパス周辺">
@@ -47,6 +46,7 @@
                         {% endfor %}
                         </optgroup>
                     </select>
+                    </p>
                 {% endif %}
 
                 {% for key, value in questions_rent.items %}
@@ -76,20 +76,20 @@
                 {% endfor %}
                 {% csrf_token %}
                 {% if not pred %}
-                    <button type="submit", style="width:200px;height:100px">上記のステータスで予測する</button>
+                    <button class="botton" type="submit", style="width:200px;height:100px">上記のステータスで予測する</button>
                 {% endif %}
             </form>
         </div>
 
         {% if pred %}
             <div>
-                <h3>あなたの理想の下宿先の賃料は月 {{ pred }} 万円です！</h3>
-                <p>※この予測結果は結構自信あります(詳細は下のリンクから)</p>
+                <p><big><big>あなたの理想の下宿先の賃料は月 {{ pred }} 万円です！</big></big></p>
+                <p>※この予測結果は結構自信あります</p>
                 <p>※もう一度やり直したい場合はブラウザの戻る機能で戻ってね</p>
             </div>
 
             <div>
-                <a href="rent_detail/">このAIの詳細はこちら</a>
+                <a class="upper" href="rent_detail/">このAIの詳細はこちら</a>
             </div>
         {% endif %}
     </body>

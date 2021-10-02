@@ -1,0 +1,40 @@
+body {
+    position: relative;
+    background: url(img.png) no-repeat;
+    background-size: cover;
+    background-position: 50%;
+}body::after {
+    content: '';
+    position: absolute;
+    background-color: rgba(0,0,0,.5);
+    background-size: cover;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+p{
+    padding: .1em;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    position: relative;
+    z-index: 1;
+}
+
+.title {
+    color: rgb(255, 255, 255);
+    font-size: 80px;
+    position: relative;
+    z-index: 1;
+}
+
+.upper {
+    color:rgb(255, 255, 255);
+    position: relative;
+    z-index: 1;
+}
+
+.botton {
+    position: relative;
+    z-index: 1;
+}
