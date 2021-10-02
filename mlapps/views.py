@@ -62,7 +62,7 @@ def score(request):
             delete_columns(df_lr, lr_columns)
             delete_columns(df_svm, svm_columns)
 
-            with open('Aoyamasai_models.pickle', mode='rb') as fp:
+            with open('/home/aran/aran.pythonanywhere.com/Aoyamasai_models.pickle', mode='rb') as fp:
                 model1, model2, model3 = pickle.load(fp)
             pred = int(np.round((model1.predict(df_bayes) + model2.predict(df_lr) + model3.predict(df_svm)) / 3))
 
@@ -78,17 +78,17 @@ def score_detail(request):
     return render(request, 'mlapps/score_detail.html', {})
 
 
-with open('Saddress.pickle', mode='rb') as fp:
+with open('/home/aran/aran.pythonanywhere.com/Saddress.pickle', mode='rb') as fp:
     Saddress = pickle.load(fp)
-with open('Slayout.pickle', mode='rb') as fp:
+with open('/home/aran/aran.pythonanywhere.com/Slayout.pickle', mode='rb') as fp:
     Slayout = pickle.load(fp)
-with open('Aaddress.pickle', mode='rb') as fp:
+with open('/home/aran/aran.pythonanywhere.com/Aaddress.pickle', mode='rb') as fp:
     Aaddress = pickle.load(fp)
-with open('Alayout.pickle', mode='rb') as fp:
+with open('/home/aran/aran.pythonanywhere.com/Alayout.pickle', mode='rb') as fp:
     Alayout = pickle.load(fp)
-with open('Smodel_lgb_rent.pickle', mode='rb') as fp:
+with open('/home/aran/aran.pythonanywhere.com/Smodel_lgb_rent.pickle', mode='rb') as fp:
     Smodel_lgb_rent = pickle.load(fp)
-with open('Amodel_lgb_rent.pickle', mode='rb') as fp:
+with open('/home/aran/aran.pythonanywhere.com/Amodel_lgb_rent.pickle', mode='rb') as fp:
     Amodel_lgb_rent = pickle.load(fp)
 
 questions_rent = {
@@ -146,15 +146,15 @@ def rent_detail(request):
     return render(request, 'mlapps/rent_detail.html', {})
     
 
-with open('LE_destination.pickle', mode='rb') as fp:
+with open('/home/aran/aran.pythonanywhere.com/LE_destination.pickle', mode='rb') as fp:
     LE_destination = pickle.load(fp)
-with open('LE_inn_num.pickle', mode='rb') as fp:
+with open('/home/aran/aran.pythonanywhere.com/LE_inn_num.pickle', mode='rb') as fp:
     LE_inn_num = pickle.load(fp)
-with open('LE_inn_type.pickle', mode='rb') as fp:
+with open('/home/aran/aran.pythonanywhere.com/LE_inn_type.pickle', mode='rb') as fp:
     LE_inn_type = pickle.load(fp)
-with open('LE_meal.pickle', mode='rb') as fp:
+with open('/home/aran/aran.pythonanywhere.com/LE_meal.pickle', mode='rb') as fp:
     LE_meal = pickle.load(fp)
-with open('model_lgb_travel.pickle', mode='rb') as fp:
+with open('/home/aran/aran.pythonanywhere.com/model_lgb_travel.pickle', mode='rb') as fp:
     model_lgb_travel = pickle.load(fp)
 
 questions_travel = {
