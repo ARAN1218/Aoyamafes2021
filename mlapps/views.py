@@ -33,8 +33,6 @@ questions = {
         ,'[最重要]ハトは"良い"ですか？':['0. はい', '1. いいえ', '810. ｵﾊｰﾄ🐦']
     }
 bayes_columns = ['あなたの性別は何ですか？', 'あなたは文系ですか？理系ですか？', 'あなたは高校時代に何か部活に加入していましたか？', 'あなたは大学進学という進路選択について、明確な目的意識がありましたか？', 'あなたはファッションに興味がありますか？', 'あなたは周りと合わせるよりも自分の道を突き通す方ですか？', 'あなたは音楽を聴きながら勉強していましたか？', 'あなたは塾・予備校(またはそれに準ずるサービス等)を利用していましたか？', 'あなたは青学合格年度に一日平均どの程度睡眠をとっていましたか？', 'あなたは受験期にスマホやテレビ等の使用制限をかけていましたか？', '第一志望大学群はどこでしたか？']
-lr_columns = ['あなたは大学進学という進路選択について、明確な目的意識がありましたか？', 'あなたはファッションに興味がありますか？', 'あなたは周りと合わせるよりも自分の道を突き通す方ですか？', 'あなたは音楽を聴きながら勉強していましたか？', 'あなたは塾・予備校(またはそれに準ずるサービス等)を利用していましたか？', 'あなたは受験期にスマホやテレビ等の使用制限をかけていましたか？', '第一志望大学群はどこでしたか？']
-svm_columns = ['あなたはファッションに興味がありますか？']
 prediction = {
     0.:'A',
     1.:'B',
@@ -56,15 +54,11 @@ def score(request):
             df_try = pd.DataFrame(index=['own'])
             for question in questions:
                 df_try[question] = request.POST[question]
-
-            df_bayes, df_lr, df_svm = df_try.copy(), df_try.copy(), df_try.copy()
-            delete_columns(df_bayes, bayes_columns)
-            delete_columns(df_lr, lr_columns)
-            delete_columns(df_svm, svm_columns)
+            delete_columns(df_try, bayes_columns)
 
             with open('/home/aran/aran.pythonanywhere.com/Aoyamasai_models.pickle', mode='rb') as fp:
-                model1, model2, model3 = pickle.load(fp)
-            pred = int(np.round((model1.predict(df_bayes) + model2.predict(df_lr) + model3.predict(df_svm)) / 3))
+                score_model = pickle.load(fp)[0]
+            pred = int(np.round((score_model.predict(df_try))))
 
             return render(request, 'mlapps/score.html',
             {
