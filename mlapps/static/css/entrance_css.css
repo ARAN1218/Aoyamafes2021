@@ -39,11 +39,11 @@ h3 a {
 }
 .title4 {
     color: #ffffff;
-    font-size: 100px;
+    font-size: 80px;
 }
 .title5 {
     color: #000000;
-    font-size: 100px;
+    font-size: 80px;
 }
 .title6 {
     color: #ffffff;
@@ -56,6 +56,10 @@ h3 a {
 .title8 {
     color: #ffffff;
     font-size: 100px;
+}
+.title9 {
+    color: #ffffff;
+    font-size: 50px
 }
 
 .lu {
